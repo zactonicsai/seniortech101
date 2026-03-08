@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Senior Tech Safety Guide – Stay Safe & Connected</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700;900&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --navy: #1a3a5c;
+    --gold: #d4900a;
+    --sky: #2e7cb8;
+    --mint: #1a7a5a;
+    --rose: #b83232;
+    --plum: #6b3fa0;
+    --warm: #f7f3ee;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Source Sans Pro', sans-serif;
+    background-color: var(--warm);
+    font-size: 18px;
+    color: #1a1a1a;
+    line-height: 1.7;
+  }
+  h1,h2,h3,h4 { font-family: 'Merriweather', serif; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, var(--navy) 0%, #2d5a8e 60%, #1a7a5a 100%);
+    padding: 48px 20px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-emoji { font-size: 64px; display: block; margin-bottom: 16px; }
+  .hero h1 { color: white; font-size: clamp(26px,6vw,48px); margin: 0 0 12px; font-weight: 900; }
+  .hero p { color: #b3d4f5; font-size: clamp(16px,3vw,20px); max-width: 600px; margin: 0 auto; }
+
+  /* TOC */
+  .toc { background: white; border-left: 6px solid var(--gold); border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.10); padding: 28px 28px 24px; margin: 32px auto; max-width: 900px; }
+  .toc h2 { color: var(--navy); font-size: 22px; margin: 0 0 16px; }
+  .toc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 10px; }
+  .toc-link { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-radius: 8px; text-decoration: none; font-size: 17px; font-weight: 600; transition: all 0.2s; border: 2px solid transparent; }
+  .toc-link:hover { transform: translateX(4px); border-color: currentColor; }
+  .toc-link .num { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
+
+  /* Section cards */
+  .section-card { max-width: 900px; margin: 32px auto; background: white; border-radius: 16px; box-shadow: 0 6px 32px rgba(0,0,0,0.09); overflow: hidden; }
+  .section-header { padding: 24px 28px; display: flex; align-items: center; gap: 16px; }
+  .section-header .icon { font-size: 36px; }
+  .section-header h2 { color: white; margin: 0; font-size: clamp(20px,4vw,28px); font-weight: 700; }
+  .section-body { padding: 8px 0 16px; }
+
+  /* Accordion */
+  .accordion-item { border-bottom: 1px solid #f0ece8; }
+  .accordion-item:last-child { border-bottom: none; }
+  .accordion-btn { width: 100%; background: none; border: none; padding: 18px 28px; text-align: left; cursor: pointer; display: flex; align-items: flex-start; gap: 14px; font-family: 'Source Sans Pro', sans-serif; font-size: 18px; font-weight: 600; color: #1a1a1a; transition: background 0.15s; }
+  .accordion-btn:hover { background: #faf8f5; }
+  .accordion-btn .acc-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+  .accordion-btn .acc-arrow { margin-left: auto; font-size: 16px; color: #888; transition: transform 0.25s; flex-shrink: 0; margin-top: 4px; }
+  .accordion-btn.open .acc-arrow { transform: rotate(180deg); }
+  .accordion-content { display: none; padding: 0 28px 20px 64px; }
+  .accordion-content.open { display: block; animation: fadeIn 0.2s ease; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(-4px); } to { opacity:1; transform:translateY(0); } }
+  .accordion-content p { font-size: 17px; color: #374151; margin: 0 0 12px; }
+  .accordion-content ul { padding-left: 20px; margin: 8px 0 0; }
+  .accordion-content ul li { font-size: 17px; color: #374151; margin-bottom: 8px; }
+  .accordion-content a { color: var(--sky); font-weight: 600; }
+  .accordion-content a:hover { text-decoration: underline; }
+
+  /* Alert boxes */
+  .alert-red { background: #fff5f5; border-left: 5px solid #dc2626; border-radius: 8px; padding: 14px 18px; margin: 12px 0; }
+  .alert-green { background: #f0fdf4; border-left: 5px solid #16a34a; border-radius: 8px; padding: 14px 18px; margin: 12px 0; }
+  .alert-gold { background: #fffbeb; border-left: 5px solid var(--gold); border-radius: 8px; padding: 14px 18px; margin: 12px 0; }
+  .alert-blue { background: #eff6ff; border-left: 5px solid #2563eb; border-radius: 8px; padding: 14px 18px; margin: 12px 0; }
+  .alert-title { font-weight: 700; font-size: 16px; margin-bottom: 4px; }
+
+  /* Question cards */
+  .q-card { background: #f9f7ff; border: 2px solid #ddd6fe; border-radius: 10px; padding: 16px 20px; margin: 10px 0; }
+  .q-card .q-text { font-size: 17px; font-weight: 600; color: var(--plum); margin: 0 0 6px; }
+  .q-card .q-why { font-size: 15px; color: #555; margin: 0; }
+
+  /* Contact cards */
+  .contact-card { background: #f0f7ff; border: 2px solid #bfdbfe; border-radius: 10px; padding: 16px 20px; margin: 10px 0; display: flex; flex-wrap: wrap; gap: 10px; align-items: flex-start; }
+  .contact-card .org { font-weight: 700; font-size: 17px; color: var(--navy); }
+  .contact-card .phone { font-size: 18px; font-weight: 700; color: var(--sky); }
+  .contact-card a { color: var(--sky); font-weight: 600; }
+
+  /* Tip badges */
+  .badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 10px; }
+  .badge-red { background: #fee2e2; color: #991b1b; }
+  .badge-green { background: #dcfce7; color: #166534; }
+  .badge-blue { background: #dbeafe; color: #1e40af; }
+  .badge-gold { background: #fef3c7; color: #92400e; }
+
+  /* Back to top */
+  #back-to-top { position: fixed; bottom: 24px; right: 24px; background: var(--navy); color: white; border: none; border-radius: 50px; padding: 12px 20px; font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 16px rgba(0,0,0,0.2); display: none; z-index: 100; transition: background 0.2s; font-family: 'Source Sans Pro', sans-serif; }
+  #back-to-top:hover { background: var(--sky); }
+
+  /* Print */
+  .section-divider { text-align: center; padding: 8px; color: #bbb; font-size: 13px; }
+
+  /* Responsive */
+  @media (max-width: 640px) {
+    .accordion-btn { padding: 16px 18px; font-size: 17px; }
+    .accordion-content { padding: 0 18px 18px 18px; }
+    .section-header { padding: 20px 18px; }
+    .toc { padding: 20px 16px; }
+    .contact-card, .q-card { padding: 14px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-emoji">🛡️</span>
+  <h1>Senior Tech Safety Guide</h1>
+  <p>Everything you need to stay safe, confident, and connected — in simple, clear language</p>
+</div>
+
+<!-- GOLDEN RULE BANNER -->
+<div style="background: #d4900a; padding: 16px 20px; text-align: center;">
+  <p style="color: white; font-size: 18px; font-weight: 700; margin: 0;">
+    💡 Golden Rule: When in doubt — STOP. Hang up, don't click, and call someone you trust.
+  </p>
+</div>
+
+<!-- TABLE OF CONTENTS -->
+<div id="top" class="toc" style="margin-top: 32px;">
+  <h2>📋 Table of Contents</h2>
+  <p style="font-size: 16px; color: #555; margin: 0 0 16px;">Click any section to jump directly to it.</p>
+  <div class="toc-grid">
+    <a href="#section1" class="toc-link" style="color: #1a3a5c; background: #eef4fb;">
+      <span class="num" style="background: #1a3a5c; color: white;">1</span> 📱 Using Your Devices
+    </a>
+    <a href="#section2" class="toc-link" style="color: #1a7a5a; background: #eef9f4;">
+      <span class="num" style="background: #1a7a5a; color: white;">2</span> 🌐 Staying Safe Online
+    </a>
+    <a href="#section3" class="toc-link" style="color: #b83232; background: #fdf2f2;">
+      <span class="num" style="background: #b83232; color: white;">3</span> 🚨 Recognizing Scams
+    </a>
+    <a href="#section4" class="toc-link" style="color: #6b3fa0; background: #f5f0fc;">
+      <span class="num" style="background: #6b3fa0; color: white;">4</span> ❓ Questions to Ask Callers & Emailers
+    </a>
+    <a href="#section5" class="toc-link" style="color: #b05a00; background: #fdf6ee;">
+      <span class="num" style="background: #b05a00; color: white;">5</span> 🎭 How Scammers Fake Things
+    </a>
+    <a href="#section6" class="toc-link" style="color: #1a3a5c; background: #eef4fb;">
+      <span class="num" style="background: #1a3a5c; color: white;">6</span> 📧 How to Verify Emails
+    </a>
+    <a href="#section7" class="toc-link" style="color: #1a7a5a; background: #eef9f4;">
+      <span class="num" style="background: #1a7a5a; color: white;">7</span> 📝 Filling Out Forms Online Safely
+    </a>
+    <a href="#section8" class="toc-link" style="color: #b83232; background: #fdf2f2;">
+      <span class="num" style="background: #b83232; color: white;">8</span> 📺 Roku & Home Devices
+    </a>
+    <a href="#section9" class="toc-link" style="color: #6b3fa0; background: #f5f0fc;">
+      <span class="num" style="background: #6b3fa0; color: white;">9</span> 📞 Who to Contact to Verify
+    </a>
+    <a href="#section10" class="toc-link" style="color: #b05a00; background: #fdf6ee;">
+      <span class="num" style="background: #b05a00; color: white;">10</span> ⛔ Red Flag Phrases
+    </a>
+  </div>
+</div>
+
+<!-- ==================== SECTION 1 ==================== -->
+<div id="section1" class="section-card">
+  <div class="section-header" style="background: linear-gradient(135deg, #1a3a5c, #2d5a8e);">
+    <span class="icon">📱</span>
+    <h2>1. Using Your Devices</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">🔄</span> Keep Your Phone & Computer Updated
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="badge badge-red">Very Important</div>
+        <p>Updates fix security holes that criminals use to break into your device. Think of it like locking a door that was left open.</p>
+        <div class="alert-green">
+          <div class="alert-title">✅ How to update:</div>
+          <ul>
+            <li><strong>iPhone/iPad:</strong> Settings → General → Software Update</li>
+            <li><strong>Android phone:</strong> Settings → System → System Update</li>
+            <li><strong>Windows computer:</strong> Start Menu → Settings → Windows Update</li>
+            <li><strong>Mac computer:</strong> Apple menu () → System Preferences → Software Update</li>
+          </ul>
+        </div>
+        <p>Set your device to update automatically so you never have to remember!</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">🔑</span> Creating Strong Passwords
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="badge badge-red">Very Important</div>
+        <p>Weak passwords are like a lock made of cardboard. Criminals can crack common passwords in seconds.</p>
+        <div class="alert-red">
+          <div class="alert-title">🚫 Never use these as passwords:</div>
+          <ul>
+            <li>Your birthday, address, or name</li>
+            <li>"password", "123456", or "abc123"</li>
+            <li>Your pet's name or child's name alone</li>
+            <li>The same password on multiple accounts</li>
+          </ul>
+        </div>
+        <div class="alert-green">
+          <div class="alert-title">✅ Good password tips:</div>
+          <ul>
+            <li>Use a <strong>passphrase</strong> — 3 random words + numbers: <em>BlueTruck!Rain47</em></li>
+            <li>At least 12 characters long</li>
+            <li>Mix of CAPITAL letters, lowercase, numbers, and symbols like ! @ # $</li>
+            <li>Different password for every account (especially email and banking)</li>
+          </ul>
+        </div>
+        <p>Consider a <strong>password manager</strong> like <a href="https://www.lastpass.com" target="_blank">LastPass</a> or the built-in one on your iPhone (iCloud Keychain) to remember all your passwords safely.</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">📲</span> Two-Step Verification (2FA)
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="badge badge-green">Highly Recommended</div>
+        <p>Two-step verification means that even if someone steals your password, they still can't get into your account because they'd also need your phone.</p>
+        <p>When enabled, every time you log in from a new device, the website texts you a 6-digit code. You must enter that code to get in.</p>
+        <div class="alert-blue">
+          <div class="alert-title">ℹ️ Turn it on for:</div>
+          <ul>
+            <li>Your email account (Gmail, Yahoo, Outlook)</li>
+            <li>Online banking</li>
+            <li>Facebook, Apple ID, Google account</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">📸</span> Backing Up Your Photos & Files
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <p>A "backup" is a copy of your photos and files saved in a second, safe place. If your phone breaks, gets lost, or is stolen, you won't lose your memories.</p>
+        <div class="alert-green">
+          <div class="alert-title">✅ Free backup options:</div>
+          <ul>
+            <li><strong>iPhone:</strong> iCloud — Settings → [Your Name] → iCloud → iCloud Backup → turn ON</li>
+            <li><strong>Android:</strong> Google Photos — download the free app and turn on "Backup"</li>
+            <li><strong>Computer:</strong> Use an external hard drive or free services like Google Drive or OneDrive</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== SECTION 2 ==================== -->
+<div id="section2" class="section-card">
+  <div class="section-header" style="background: linear-gradient(135deg, #1a7a5a, #2da876);">
+    <span class="icon">🌐</span>
+    <h2>2. Staying Safe Online</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">🔒</span> Look for the Padlock & "https"
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="badge badge-red">Very Important</div>
+        <p>Before entering your credit card, Social Security number, or password on ANY website, look at the address bar at the top of your browser.</p>
+        <div class="alert-green">
+          <div class="alert-title">✅ Safe website looks like:</div>
+          <p><strong>🔒 https://www.yourbank.com</strong> — Has a padlock icon AND starts with "https" (the "s" means secure)</p>
+        </div>
+        <div class="alert-red">
+          <div class="alert-title">🚫 Unsafe or suspicious:</div>
+          <p><strong>http://www.yourbank.com</strong> — No padlock, no "s" after "http" — DO NOT enter personal info here</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">📶</span> Public WiFi Warning
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="badge badge-red">Caution</div>
+        <p>Free WiFi at coffee shops, restaurants, airports, and libraries can be monitored by criminals sitting nearby. They can see what websites you visit and sometimes steal passwords.</p>
+        <div class="alert-red">
+          <div class="alert-title">🚫 Never do these on public WiFi:</div>
+          <ul>
+            <li>Online banking or paying bills</li>
+            <li>Shopping and entering credit card info</li>
+            <li>Logging into email with sensitive information</li>
+          </ul>
+        </div>
+        <div class="alert-green">
+          <div class="alert-title">✅ Safe on public WiFi:</div>
+          <ul>
+            <li>Reading news, checking weather, or watching YouTube</li>
+            <li>Looking up restaurant menus</li>
+          </ul>
+        </div>
+        <p>For banking and shopping, wait until you're home on your own password-protected network, or use your phone's cellular data (not WiFi).</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">🖱️</span> Think Before You Click
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <p>Many scams start with one click on a suspicious link. Before clicking any link in an email, text message, or on a website, take 5 seconds to check it.</p>
+        <div class="alert-gold">
+          <div class="alert-title">💡 How to check a link (on a computer):</div>
+          <p>Hover your mouse <em>over</em> the link (don't click!) and look at the bottom left of your screen. The real web address will appear. If it looks strange or different from the sender, don't click it.</p>
+        </div>
+        <div class="alert-red">
+          <div class="alert-title">🚫 Suspicious link examples:</div>
+          <ul>
+            <li>amaz0n-support.net (note the zero instead of "o")</li>
+            <li>paypal-security-verify.xyz</li>
+            <li>irs-refund-claim.com (IRS only uses .gov)</li>
+          </ul>
+        </div>
+        <p><strong>Rule:</strong> Government websites always end in <strong>.gov</strong>. Fake ones don't.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== SECTION 3 ==================== -->
+<div id="section3" class="section-card">
+  <div class="section-header" style="background: linear-gradient(135deg, #b83232, #e05555);">
+    <span class="icon">🚨</span>
+    <h2>3. Recognizing Common Scams</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">📞</span> IRS & Government Impersonation Scams
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="badge badge-red">Very Common</div>
+        <p>A person calls claiming to be from the IRS, Social Security Administration, or Medicare saying you owe money or your benefits will be cut off unless you pay immediately.</p>
+        <div class="alert-red">
+          <div class="alert-title">🚫 The truth:</div>
+          <ul>
+            <li>The IRS always contacts you by <strong>mail first</strong>, never by unexpected phone call</li>
+            <li>Social Security will <strong>never threaten to suspend your number</strong></li>
+            <li>Government agencies <strong>never demand gift cards or wire transfers</strong></li>
+          </ul>
+        </div>
+        <div class="alert-green">
+          <div class="alert-title">✅ What to do:</div>
+          <p>Hang up immediately. If worried, call the IRS directly: <strong>1-800-829-1040</strong> or Social Security: <strong>1-800-772-1213</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">💻</span> Tech Support Scams
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="badge badge-red">Very Common</div>
+        <p>You get a phone call or a scary pop-up on your computer saying your computer is infected with a virus. They offer to "fix" it if you give them access or pay a fee.</p>
+        <div class="alert-red">
+          <div class="alert-title">🚫 The truth:</div>
+          <ul>
+            <li>Microsoft, Apple, and antivirus companies <strong>never call you</strong> out of the blue</li>
+            <li>Pop-ups saying "Call us immediately" are fake — it's a scare tactic</li>
+            <li>If you give them remote access, they can steal all your files and passwords</li>
+          </ul>
+        </div>
+        <div class="alert-green">
+          <div class="alert-title">✅ What to do:</div>
+          <p>Close the pop-up or hang up. If your computer seems slow or odd, take it to a local trusted repair shop or call Apple Support directly at <strong>1-800-275-2273</strong>.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">👴</span> Grandparent / Family Emergency Scams
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="badge badge-red">Emotionally Dangerous</div>
+        <p>Someone calls claiming to be your grandchild (or a lawyer/officer on their behalf) saying they've been in an accident, arrested, or are in trouble and need money wired immediately. They beg you not to tell anyone.</p>
+        <div class="alert-red">
+          <div class="alert-title">🚫 Warning signs:</div>
+          <ul>
+            <li>"Grandma, it's me — please don't tell Mom and Dad"</li>
+            <li>They need bail money, hospital fees, or legal fees — right now</li>
+            <li>They want cash, wire transfer, or gift cards</li>
+          </ul>
+        </div>
+        <div class="alert-green">
+          <div class="alert-title">✅ What to do:</div>
+          <p><strong>Hang up and call your family member directly</strong> using a phone number you already have (not the one they gave you). Verify before doing anything.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">💕</span> Romance Scams
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="badge badge-red">Heartbreaking & Costly</div>
+        <p>You meet someone online (Facebook, a dating app, even email) who seems wonderful and attentive. After weeks of building trust, they have a sudden "emergency" and need money.</p>
+        <div class="alert-red">
+          <div class="alert-title">🚫 Signs it's a romance scammer:</div>
+          <ul>
+            <li>They live far away, are working overseas, or are in the military</li>
+            <li>They refuse to video chat or always have excuses not to meet</li>
+            <li>They shower you with affection very quickly</li>
+            <li>After weeks of chatting, they ask for money, gift cards, or cryptocurrency</li>
+          </ul>
+        </div>
+        <div class="alert-green">
+          <div class="alert-title">✅ Golden rule:</div>
+          <p><strong>Never send money to someone you've never met in person</strong> — no matter how much you trust them online. This is always a scam.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">🎉</span> Lottery & Prize Scams
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <p>You get a call, letter, or email saying you've won a prize — but you must pay "taxes" or "processing fees" to receive it.</p>
+        <div class="alert-red">
+          <div class="alert-title">🚫 The truth:</div>
+          <ul>
+            <li>You cannot win a lottery you never entered</li>
+            <li>Real prizes never require you to pay money to receive them</li>
+            <li>Real sweepstakes don't ask for your bank account number</li>
+          </ul>
+        </div>
+        <div class="alert-green">
+          <div class="alert-title">✅ Rule to remember:</div>
+          <p>If you have to <strong>pay to get a prize</strong>, it's not a prize — it's a scam.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== SECTION 4 ==================== -->
+<div id="section4" class="section-card">
+  <div class="section-header" style="background: linear-gradient(135deg, #6b3fa0, #9461d0);">
+    <span class="icon">❓</span>
+    <h2>4. Questions to Ask Unexpected Callers & Email Senders</h2>
+  </div>
+  <div class="section-body">
+    <div style="padding: 20px 28px 8px;">
+      <p style="font-size: 18px;">Whenever you receive an unexpected call or email asking for action, ask these questions. Legitimate organizations will welcome your caution. Scammers will pressure, threaten, or hang up.</p>
+      <div class="alert-gold">
+        <div class="alert-title">💡 Pro Tip:</div>
+        <p>Write these questions down and keep them near your phone. Take your time — no legitimate caller will rush you.</p>
+      </div>
+    </div>
+
+    <div style="padding: 8px 28px 20px;">
+      <h3 style="font-size: 20px; color: #6b3fa0; margin-bottom: 16px;">📞 Questions for Phone Callers</h3>
+
+      <div class="q-card">
+        <p class="q-text">1. "What is your full name and employee ID number?"</p>
+        <p class="q-why">Why: Legitimate employees will have this information. Scammers often stumble or give vague answers.</p>
+      </div>
+      <div class="q-card">
+        <p class="q-text">2. "What organization are you calling from, and what is your official website?"</p>
+        <p class="q-why">Why: Write it down. Then look it up yourself on Google — don't trust what they tell you.</p>
+      </div>
+      <div class="q-card">
+        <p class="q-text">3. "Can you send me this information in writing by mail or official email?"</p>
+        <p class="q-why">Why: Scammers want to act fast. Real companies are happy to put things in writing.</p>
+      </div>
+      <div class="q-card">
+        <p class="q-text">4. "Why do you need this information right now? What happens if I wait until tomorrow?"</p>
+        <p class="q-why">Why: Artificial urgency is a scammer's most powerful tool. Real emergencies can usually wait an hour.</p>
+      </div>
+      <div class="q-card">
+        <p class="q-text">5. "Can I call you back at the number listed on your official website?"</p>
+        <p class="q-why">Why: Real organizations will say yes. Scammers will say no, give you a different number, or pressure you to stay on the line.</p>
+      </div>
+      <div class="q-card">
+        <p class="q-text">6. "Why can't I use a check or credit card — why are you asking for gift cards or wire transfers?"</p>
+        <p class="q-why">Why: No legitimate business or government agency accepts gift cards. Ever. This is always a scam.</p>
+      </div>
+      <div class="q-card">
+        <p class="q-text">7. "I'd like to call my son/daughter/trusted friend before I do anything. Is that okay?"</p>
+        <p class="q-why">Why: Real callers will say "of course." Scammers will say no and try to keep you isolated.</p>
+      </div>
+
+      <h3 style="font-size: 20px; color: #6b3fa0; margin: 24px 0 16px;">📧 Questions for Unexpected Emails</h3>
+
+      <div class="q-card">
+        <p class="q-text">1. "Did I sign up for anything from this company?"</p>
+        <p class="q-why">Why: If you didn't sign up or have no account with them, the email is almost certainly spam or a scam.</p>
+      </div>
+      <div class="q-card">
+        <p class="q-text">2. "Does the email address actually match the company name?"</p>
+        <p class="q-why">Example: A real PayPal email comes from @paypal.com — not @paypal-support.net or @notify-paypal.com</p>
+      </div>
+      <div class="q-card">
+        <p class="q-text">3. "Is this email threatening, creating panic, or asking me to act immediately?"</p>
+        <p class="q-why">Why: "Your account will be deleted in 24 hours" or "Suspicious activity detected — verify now" are fear tactics.</p>
+      </div>
+      <div class="q-card">
+        <p class="q-text">4. "Does the email have spelling errors, odd phrasing, or look different than usual?"</p>
+        <p class="q-why">Why: Many scam emails come from other countries and contain grammatical mistakes. Logos may look slightly "off."</p>
+      </div>
+      <div class="q-card">
+        <p class="q-text">5. "Is there an attachment I wasn't expecting?"</p>
+        <p class="q-why">Why: Never open attachments from people you don't know. They can install viruses on your computer automatically.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SECTION 5 ==================== -->
+<div id="section5" class="section-card">
+  <div class="section-header" style="background: linear-gradient(135deg, #b05a00, #d97706);">
+    <span class="icon">🎭</span>
+    <h2>5. How Scammers Use Technology to Fake Things</h2>
+  </div>
+  <div class="section-body">
+    <div style="padding: 20px 28px 8px;">
+      <div class="alert-red">
+        <div class="alert-title">⚠️ Important to know:</div>
+        <p>Modern technology makes it easy for criminals to fake almost anything — a phone number, a voice, even a video. This is NOT science fiction — it happens every day.</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">📲</span> "Caller ID Spoofing" — Faking Phone Numbers
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="badge badge-red">Very Common</div>
+        <p><strong>What it is:</strong> Scammers can make your caller ID display ANY phone number they want — including your bank's real number, the IRS, Social Security, or even your neighbor's number.</p>
+        <p><strong>Real example:</strong> Your phone shows "BANK OF AMERICA — 1-800-432-1000" but it's actually a scammer calling from overseas.</p>
+        <div class="alert-gold">
+          <div class="alert-title">💡 What to do:</div>
+          <ul>
+            <li>If a call seems suspicious, <strong>hang up</strong> and call the number on the back of your card or on the company's official website</li>
+            <li>Never trust caller ID alone</li>
+            <li>Your bank will <strong>never</strong> be offended if you hang up and call them back directly</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">🗣️</span> AI Voice Cloning — Faking Voices
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="badge badge-red">New & Growing Threat</div>
+        <p><strong>What it is:</strong> With just a few seconds of someone's voice (from a social media video or voicemail), artificial intelligence can now create a fake audio recording that sounds exactly like that person.</p>
+        <p><strong>Real example:</strong> You get a call that sounds exactly like your grandson saying he's been in an accident and needs money immediately. But it's a computer-generated voice made by criminals.</p>
+        <div class="alert-gold">
+          <div class="alert-title">💡 How to protect yourself:</div>
+          <ul>
+            <li>Set up a <strong>family code word</strong> — a secret word only family members know. If someone can't say it, it's not really them</li>
+            <li>Hang up and call the person back on their regular number</li>
+            <li>Be suspicious of any call where someone needs money urgently</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">🖼️</span> Fake Websites That Look Real
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <p><strong>What it is:</strong> Criminals create websites that look identical to real bank, government, or store websites — same logos, same colors, same layout. But they're fake traps designed to steal your info.</p>
+        <div class="alert-red">
+          <div class="alert-title">🚫 Signs of a fake website:</div>
+          <ul>
+            <li>The web address is slightly different: amaz<strong>0</strong>n.com (zero) vs amazon.com</li>
+            <li>It ends in .net, .info, or .xyz instead of .com or .gov</li>
+            <li>They found you through a Google ad (not the regular search result)</li>
+            <li>Something feels "off" about the design or wording</li>
+          </ul>
+        </div>
+        <div class="alert-green">
+          <div class="alert-title">✅ How to stay safe:</div>
+          <ul>
+            <li>Type web addresses directly into your browser — don't click links</li>
+            <li>Bookmark websites you use often (your bank, Social Security, Medicare)</li>
+            <li>Government sites always end in <strong>.gov</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">📧</span> Fake Emails That Look Official
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <p><strong>What it is:</strong> Called "phishing," scammers send emails with real company logos and official-looking formatting to trick you into clicking a link or giving personal information.</p>
+        <p><strong>Real example:</strong> An email appearing to be from Amazon says "Your package cannot be delivered — verify your address and payment info now." The link goes to a fake site.</p>
+        <div class="alert-gold">
+          <div class="alert-title">💡 Key defense:</div>
+          <p>Never click links in emails from companies. Instead, <strong>open a new browser tab and type the company's address yourself</strong> to check your account directly.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">🎥</span> Deepfakes — Fake Videos
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="badge badge-gold">Emerging Threat</div>
+        <p><strong>What it is:</strong> AI technology can create realistic videos of people saying things they never said. This has been used to fake celebrity endorsements, news reports, and family member emergencies.</p>
+        <p><strong>Example:</strong> A video appears to show a famous person promoting a "once-in-a-lifetime investment." It looks and sounds completely real. But it's entirely computer-generated.</p>
+        <div class="alert-gold">
+          <div class="alert-title">💡 What to look for:</div>
+          <ul>
+            <li>The mouth movements don't quite match the voice</li>
+            <li>The face looks slightly blurry or "plasticky" around the edges</li>
+            <li>It was shared on social media, not from the celebrity's real account</li>
+            <li><strong>Regardless of how real it looks: never invest money based on a video alone</strong></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== SECTION 6 ==================== -->
+<div id="section6" class="section-card">
+  <div class="section-header" style="background: linear-gradient(135deg, #1a3a5c, #1a7a5a);">
+    <span class="icon">📧</span>
+    <h2>6. How to Verify If an Email Is Real</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">🔍</span> Step 1: Check the Sender's Email Address
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <p>The "display name" (what shows in bold) can say anything — like "Amazon Customer Service." But the actual email address tells the real story.</p>
+        <p>On most email apps, tap or click on the sender's name to see the full email address.</p>
+        <div class="alert-green">
+          <div class="alert-title">✅ Legitimate email addresses:</div>
+          <ul>
+            <li>Amazon: @amazon.com</li>
+            <li>PayPal: @paypal.com</li>
+            <li>IRS: @irs.gov</li>
+            <li>Medicare: @cms.hhs.gov</li>
+            <li>Your bank: @[bankname].com</li>
+          </ul>
+        </div>
+        <div class="alert-red">
+          <div class="alert-title">🚫 Fake address examples:</div>
+          <ul>
+            <li>amazon-alert@amazon-support.net</li>
+            <li>paypal@secure-account-verify.com</li>
+            <li>irs-refund@notification-service.org</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">🔗</span> Step 2: Never Click — Go Directly to the Website
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <p>If an email says there's a problem with your account (Amazon, bank, PayPal, etc.), <strong>do not click any link in the email</strong>.</p>
+        <div class="alert-green">
+          <div class="alert-title">✅ Instead, do this:</div>
+          <ol style="padding-left: 20px; font-size: 17px; color: #374151;">
+            <li style="margin-bottom: 8px;">Open a new browser tab (or window)</li>
+            <li style="margin-bottom: 8px;">Type the company's address yourself (e.g., amazon.com)</li>
+            <li style="margin-bottom: 8px;">Log into your account normally</li>
+            <li>Check if there's actually a problem — usually there isn't one</li>
+          </ol>
+        </div>
+        <p>If you do this and there's no problem with your account, the email was a scam.</p>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">📝</span> Step 3: Look for These Warning Signs
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="alert-red">
+          <div class="alert-title">🚫 Red flags in an email:</div>
+          <ul>
+            <li><strong>Generic greeting:</strong> "Dear Customer" instead of your real name</li>
+            <li><strong>Urgency:</strong> "Respond within 24 hours or your account will be closed"</li>
+            <li><strong>Spelling/grammar errors:</strong> Real companies proofread their emails</li>
+            <li><strong>Asking for personal info:</strong> Real companies never ask for your password or Social Security number by email</li>
+            <li><strong>Suspicious attachments:</strong> Unexpected PDFs, .zip files, or Word documents</li>
+            <li><strong>Mismatched logos:</strong> Looks slightly different from normal emails from that company</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">🗑️</span> Step 4: What to Do With Suspicious Emails
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="alert-green">
+          <div class="alert-title">✅ Safe steps:</div>
+          <ol style="padding-left: 20px; font-size: 17px; color: #374151;">
+            <li style="margin-bottom: 8px;"><strong>Don't click anything</strong> — not even "unsubscribe" if it looks suspicious</li>
+            <li style="margin-bottom: 8px;"><strong>Mark it as Spam/Junk</strong> in your email app</li>
+            <li style="margin-bottom: 8px;"><strong>Delete it</strong></li>
+            <li style="margin-bottom: 8px;">If it claims to be from your bank, <strong>call your bank directly</strong> using the number on your card</li>
+            <li>You can forward phishing emails to <a href="mailto:reportphishing@apwg.org">reportphishing@apwg.org</a> to report them</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== SECTION 7 ==================== -->
+<div id="section7" class="section-card">
+  <div class="section-header" style="background: linear-gradient(135deg, #1a7a5a, #1a3a5c);">
+    <span class="icon">📝</span>
+    <h2>7. How to Safely Fill Out Forms Online</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">✅</span> Before You Fill Out Any Online Form
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="alert-gold">
+          <div class="alert-title">💡 Always ask yourself:</div>
+          <ul>
+            <li><strong>Did I go to this website myself, or did I get here from a link?</strong> (Go there yourself is safer)</li>
+            <li><strong>Is the address bar showing https:// with a padlock?</strong></li>
+            <li><strong>Does this form need information I shouldn't share?</strong> (See below)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">🛑</span> Information You Should NEVER Put in an Online Form Unless Absolutely Certain
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="alert-red">
+          <div class="alert-title">🚫 Be very careful with:</div>
+          <ul>
+            <li><strong>Full Social Security Number</strong> — only for government sites (.gov) or your actual bank</li>
+            <li><strong>Bank account or routing numbers</strong> — only for official banking sites you navigate to yourself</li>
+            <li><strong>Medicare or Medicaid ID numbers</strong> — only on official Medicare.gov website</li>
+            <li><strong>Passwords</strong> — no legitimate form will ask for your password in a pop-up email or text</li>
+            <li><strong>Credit card security code (CVV)</strong> — only for purchases on trusted sites</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">🛒</span> Buying Things Online Safely
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="alert-green">
+          <div class="alert-title">✅ Safest ways to shop online:</div>
+          <ul>
+            <li>Stick to well-known stores: Amazon, Walmart.com, Target.com</li>
+            <li>Use a <strong>credit card</strong> (not debit card) — credit cards have better fraud protection</li>
+            <li>Look for the padlock and https before entering any payment info</li>
+            <li>Print or save a copy of your order confirmation</li>
+            <li>Check your credit card statement within a few days after ordering</li>
+          </ul>
+        </div>
+        <div class="alert-gold">
+          <div class="alert-title">💡 Tip for using PayPal:</div>
+          <p>PayPal is a safe way to pay online because you never give the store your actual credit card number. Learn more at <a href="https://www.paypal.com" target="_blank">paypal.com</a></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">🏥</span> Government Forms: Medicare, Social Security & More
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="alert-green">
+          <div class="alert-title">✅ Official government websites (bookmark these!):</div>
+          <ul>
+            <li><strong>Social Security:</strong> <a href="https://www.ssa.gov" target="_blank">ssa.gov</a></li>
+            <li><strong>Medicare:</strong> <a href="https://www.medicare.gov" target="_blank">medicare.gov</a></li>
+            <li><strong>IRS (taxes):</strong> <a href="https://www.irs.gov" target="_blank">irs.gov</a></li>
+            <li><strong>Healthcare.gov (insurance):</strong> <a href="https://www.healthcare.gov" target="_blank">healthcare.gov</a></li>
+            <li><strong>Veterans Affairs:</strong> <a href="https://www.va.gov" target="_blank">va.gov</a></li>
+          </ul>
+        </div>
+        <p>All government websites end in <strong>.gov</strong>. If it doesn't say .gov, it is not a real government website.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== SECTION 8 ==================== -->
+<div id="section8" class="section-card">
+  <div class="section-header" style="background: linear-gradient(135deg, #b83232, #6b3fa0);">
+    <span class="icon">📺</span>
+    <h2>8. Roku, Smart TVs & Home Devices</h2>
+  </div>
+  <div class="section-body">
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">📺</span> Roku Basics & Safety Tips
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <p>Roku is a small device that plugs into your TV and lets you watch streaming channels like Netflix, YouTube, Amazon Prime, and hundreds of free channels.</p>
+        <div class="alert-green">
+          <div class="alert-title">✅ Safe use tips:</div>
+          <ul>
+            <li>Only add channels from the official <strong>Roku Channel Store</strong> — don't sideload channels from websites</li>
+            <li>Use a strong, unique password for your Roku account</li>
+            <li>If you get a pop-up on your TV asking you to call a phone number, <strong>do not call it</strong> — it's a scam</li>
+            <li>Roku will never call you or show your phone number on TV</li>
+            <li>Free channels (like Pluto TV, Tubi, Peacock free) are safe and legitimate</li>
+          </ul>
+        </div>
+        <div class="alert-gold">
+          <div class="alert-title">💡 Roku tips:</div>
+          <ul>
+            <li>Press the Home button (🏠) any time to get back to the main screen</li>
+            <li>If a channel freezes, press the Home button and reopen it</li>
+            <li>Official Roku support: <a href="https://support.roku.com" target="_blank">support.roku.com</a> or 1-888-600-7658</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">📡</span> Smart TVs (Samsung, LG, Vizio, etc.)
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="alert-green">
+          <div class="alert-title">✅ Smart TV safety tips:</div>
+          <ul>
+            <li>Keep the TV's software updated (Settings → Support → Software Update)</li>
+            <li>Don't share your TV's remote access with anyone you don't trust</li>
+            <li>If a stranger tells you to go to a website on your TV to "activate" something, that's a scam</li>
+            <li>Your Samsung/LG account password should be unique — not the same as email</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">🔊</span> Amazon Echo / Alexa & Google Home
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <p>These smart speakers let you ask questions, play music, set reminders, and control smart home devices with your voice.</p>
+        <div class="alert-green">
+          <div class="alert-title">✅ Safety tips:</div>
+          <ul>
+            <li>These devices listen for their "wake word" (Alexa or Hey Google) — you can mute the microphone with the button on top when not in use</li>
+            <li>Set up a <strong>voice purchase PIN</strong> in the Alexa app to prevent accidental purchases</li>
+            <li>Amazon will never send messages through your Echo asking for payment or personal info</li>
+            <li>Review your voice history in the app and delete if desired</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">💡</span> Smart Home Devices (Lights, Thermostats, Doorbells)
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <div class="alert-green">
+          <div class="alert-title">✅ Security basics:</div>
+          <ul>
+            <li>Change the default password on any new device immediately</li>
+            <li>Use a strong, unique password for your home WiFi network</li>
+            <li>For video doorbells (Ring, Nest): enable two-factor authentication</li>
+            <li>Review who has access to your smart home apps and remove anyone you don't recognize</li>
+            <li>Keep device apps updated on your phone</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="accordion-item">
+      <button class="accordion-btn" onclick="toggle(this)">
+        <span class="acc-icon">📶</span> Your Home WiFi Router
+        <span class="acc-arrow">▼</span>
+      </button>
+      <div class="accordion-content">
+        <p>Your WiFi router is the device (usually with blinking lights) that connects everything in your home to the internet. Securing it is very important.</p>
+        <div class="alert-green">
+          <div class="alert-title">✅ Router security checklist:</div>
+          <ul>
+            <li>Change the default router password (not your WiFi password — the router's admin password)</li>
+            <li>Use WPA2 or WPA3 encryption (your internet provider can help)</li>
+            <li>Don't share your WiFi password with strangers or service workers you don't know well</li>
+            <li>Restart your router once a month (unplug for 30 seconds)</li>
+            <li>Call your internet provider if you see devices on your network you don't recognize</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ==================== SECTION 9 ==================== -->
+<div id="section9" class="section-card">
+  <div class="section-header" style="background: linear-gradient(135deg, #1a3a5c, #2d5a8e);">
+    <span class="icon">📞</span>
+    <h2>9. Who to Contact to Verify</h2>
+  </div>
+  <div class="section-body">
+    <div style="padding: 20px 28px 8px;">
+      <p style="font-size: 18px;">If you're ever unsure about a call, email, or situation, contact these <strong>official numbers and websites directly</strong>. Always look up numbers yourself — do not use a number given to you by a suspicious caller.</p>
+    </div>
+
+    <div style="padding: 8px 28px 24px;">
+      <h3 style="font-size: 20px; color: var(--navy); margin-bottom: 16px;">🏛️ Government Agencies</h3>
+
+      <div class="contact-card">
+        <div style="flex: 1; min-width: 200px;">
+          <div class="org">IRS (Tax Questions)</div>
+          <div class="phone">📞 1-800-829-1040</div>
+          <a href="https://www.irs.gov" target="_blank">www.irs.gov</a>
+        </div>
+        <div style="font-size: 15px; color: #555; flex: 2;">Mon–Fri 7am–7pm. For verifying if a tax notice is real.</div>
+      </div>
+
+      <div class="contact-card">
+        <div style="flex: 1; min-width: 200px;">
+          <div class="org">Social Security Administration</div>
+          <div class="phone">📞 1-800-772-1213</div>
+          <a href="https://www.ssa.gov" target="_blank">www.ssa.gov</a>
+        </div>
+        <div style="font-size: 15px; color: #555; flex: 2;">Mon–Fri 8am–7pm. To verify your benefits or report suspicious calls.</div>
+      </div>
+
+      <div class="contact-card">
+        <div style="flex: 1; min-width: 200px;">
+          <div class="org">Medicare</div>
+          <div class="phone">📞 1-800-633-4227</div>
+          <a href="https://www.medicare.gov" target="_blank">www.medicare.gov</a>
+        </div>
+        <div style="font-size: 15px; color: #555; flex: 2;">24/7. To verify Medicare benefits or report Medicare fraud.</div>
+      </div>
+
+      <h3 style="font-size: 20px; color: var(--navy); margin: 24px 0 16px;">🚨 Report Fraud & Scams</h3>
+
+      <div class="contact-card">
+        <div style="flex: 1; min-width: 200px;">
+          <div class="org">FTC — Federal Trade Commission</div>
+          <div class="phone">📞 1-877-382-4357</div>
+          <a href="https://reportfraud.ftc.gov" target="_blank">reportfraud.ftc.gov</a>
+        </div>
+        <div style="font-size: 15px; color: #555; flex: 2;">Report any scam, fraudulent call, or identity theft. Your report helps protect others.</div>
+      </div>
+
+      <div class="contact-card">
+        <div style="flex: 1; min-width: 200px;">
+          <div class="org">AARP Fraud Helpline</div>
+          <div class="phone">📞 1-877-908-3360</div>
+          <a href="https://www.aarp.org/fraud" target="_blank">aarp.org/fraud</a>
+        </div>
+        <div style="font-size: 15px; color: #555; flex: 2;">Free support for seniors. Mon–Fri 7am–11pm ET. Fraud counselors will talk you through what happened.</div>
+      </div>
+
+      <div class="contact-card">
+        <div style="flex: 1; min-width: 200px;">
+          <div class="org">FBI Internet Crime Center</div>
+          <div class="phone">📞 (file online)</div>
+          <a href="https://www.ic3.gov" target="_blank">www.ic3.gov</a>
+        </div>
+        <div style="font-size: 15px; color: #555; flex: 2;">Report online scams and internet crimes to the FBI.</div>
+      </div>
+
+      <h3 style="font-size: 20px; color: var(--navy); margin: 24px 0 16px;">💳 Credit & Identity</h3>
+
+      <div class="contact-card">
+        <div style="flex: 1; min-width: 200px;">
+          <div class="org">Freeze Your Credit (Free)</div>
+          <div style="font-size: 15px; color: #555; margin-top: 4px;">Equifax: 1-800-685-1111 | Experian: 1-888-397-3742 | TransUnion: 1-888-909-8872</div>
+        </div>
+        <div style="font-size: 15px; color: #555; flex: 2;">Freezing your credit is FREE and prevents anyone from opening new accounts in your name — even if they have your SSN.</div>
+      </div>
+
+      <div class="contact-card">
+        <div style="flex: 1; min-width: 200px;">
+          <div class="org">IdentityTheft.gov</div>
+          <div class="phone">📞 1-877-438-4338</div>
+          <a href="https://www.identitytheft.gov" target="_blank">identitytheft.gov</a>
+        </div>
+        <div style="font-size: 15px; color: #555; flex: 2;">Official FTC resource with step-by-step recovery plans if your identity has been stolen.</div>
+      </div>
+
+      <h3 style="font-size: 20px; color: var(--navy); margin: 24px 0 16px;">💻 Tech Help</h3>
+
+      <div class="contact-card">
+        <div style="flex: 1; min-width: 200px;">
+          <div class="org">Apple Support</div>
+          <div class="phone">📞 1-800-275-2273</div>
+          <a href="https://support.apple.com" target="_blank">support.apple.com</a>
+        </div>
+        <div style="font-size: 15px; color: #555; flex: 2;">For iPhone, iPad, and Mac questions. Free support included with your Apple device.</div>
+      </div>
+
+      <div class="contact-card">
+        <div style="flex: 1; min-width: 200px;">
+          <div class="org">Microsoft Support</div>
+          <div class="phone">📞 1-800-642-7676</div>
+          <a href="https://support.microsoft.com" target="_blank">support.microsoft.com</a>
+        </div>
+        <div style="font-size: 15px; color: #555; flex: 2;">For Windows computers. Free chat support available on their website.</div>
+      </div>
+
+      <div class="contact-card">
+        <div style="flex: 1; min-width: 200px;">
+          <div class="org">AARP Tech Helpline</div>
+          <div class="phone">📞 1-877-926-8300</div>
+          <a href="https://www.aarp.org/home-family/personal-technology/tech-helpline/" target="_blank">AARP Tech Help</a>
+        </div>
+        <div style="font-size: 15px; color: #555; flex: 2;">Free tech support for AARP members. Help with phones, computers, TVs, tablets, and printers.</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SECTION 10 ==================== -->
+<div id="section10" class="section-card">
+  <div class="section-header" style="background: linear-gradient(135deg, #6b3fa0, #b83232);">
+    <span class="icon">⛔</span>
+    <h2>10. Red Flag Phrases — Scammer Language</h2>
+  </div>
+  <div class="section-body">
+    <div style="padding: 20px 28px 8px;">
+      <p style="font-size: 18px;">If you hear any of these phrases, consider it a major warning sign. Hang up or close the email immediately.</p>
+    </div>
+    <div style="padding: 0 28px 24px;">
+
+      <div class="alert-red" style="margin-bottom: 14px;">
+        <div class="alert-title">⛔ "Act now or your account will be closed / suspended"</div>
+        <p style="margin: 0; font-size: 16px;">Urgency is a scammer's biggest weapon. Real companies give you days or weeks to respond, not minutes.</p>
+      </div>
+      <div class="alert-red" style="margin-bottom: 14px;">
+        <div class="alert-title">⛔ "Pay with gift cards" (iTunes, Google Play, Amazon)</div>
+        <p style="margin: 0; font-size: 16px;">NO legitimate business, government agency, or utility company accepts gift cards as payment. EVER. This is 100% a scam.</p>
+      </div>
+      <div class="alert-red" style="margin-bottom: 14px;">
+        <div class="alert-title">⛔ "Don't tell your family — this must stay between us"</div>
+        <p style="margin: 0; font-size: 16px;">Isolation is a scammer's key tactic. Any caller who asks you to keep secrets from family is a criminal.</p>
+      </div>
+      <div class="alert-red" style="margin-bottom: 14px;">
+        <div class="alert-title">⛔ "We need to access your computer remotely to fix the problem"</div>
+        <p style="margin: 0; font-size: 16px;">Never allow remote access to your computer to someone who called you. They will steal your files, passwords, and possibly your money.</p>
+      </div>
+      <div class="alert-red" style="margin-bottom: 14px;">
+        <div class="alert-title">⛔ "You've won a prize — just pay a small fee to claim it"</div>
+        <p style="margin: 0; font-size: 16px;">Real prizes are free. The "fee" is the scam. You will never receive the prize.</p>
+      </div>
+      <div class="alert-red" style="margin-bottom: 14px;">
+        <div class="alert-title">⛔ "Your Social Security number has been suspended"</div>
+        <p style="margin: 0; font-size: 16px;">Social Security numbers cannot be suspended. This is a common scam targeting seniors. Hang up immediately.</p>
+      </div>
+      <div class="alert-red" style="margin-bottom: 14px;">
+        <div class="alert-title">⛔ "We detected a virus on your computer — call us immediately"</div>
+        <p style="margin: 0; font-size: 16px;">Microsoft and Apple never proactively call you. Any pop-up with a phone number is fake. Close it without calling.</p>
+      </div>
+      <div class="alert-red" style="margin-bottom: 14px;">
+        <div class="alert-title">⛔ "Wire the money immediately — it's an emergency"</div>
+        <p style="margin: 0; font-size: 16px;">Wired money is nearly impossible to recover. Take time to verify any "emergency" by calling family directly.</p>
+      </div>
+      <div class="alert-red">
+        <div class="alert-title">⛔ "Confirm your account details to avoid suspension"</div>
+        <p style="margin: 0; font-size: 16px;">Your bank or company already has your account details. They will never ask you to "confirm" them through an email link or call.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FINAL GOLDEN RULE -->
+<div style="max-width: 900px; margin: 32px auto; padding: 0 16px 16px;">
+  <div style="background: linear-gradient(135deg, #1a3a5c, #2d5a8e, #1a7a5a); border-radius: 16px; padding: 32px 28px; text-align: center;">
+    <div style="font-size: 48px; margin-bottom: 12px;">🛡️</div>
+    <h2 style="color: white; font-size: clamp(20px,4vw,28px); margin: 0 0 16px; font-family: 'Merriweather', serif;">Remember These 5 Golden Rules</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; text-align: left; margin-top: 20px;">
+      <div style="background: rgba(255,255,255,0.12); border-radius: 10px; padding: 16px;">
+        <div style="font-size: 24px; margin-bottom: 8px;">🛑</div>
+        <p style="color: white; font-size: 16px; font-weight: 700; margin: 0 0 4px;">Stop</p>
+        <p style="color: #b3d4f5; font-size: 15px; margin: 0;">When something feels wrong, pause before acting</p>
+      </div>
+      <div style="background: rgba(255,255,255,0.12); border-radius: 10px; padding: 16px;">
+        <div style="font-size: 24px; margin-bottom: 8px;">🤔</div>
+        <p style="color: white; font-size: 16px; font-weight: 700; margin: 0 0 4px;">Think</p>
+        <p style="color: #b3d4f5; font-size: 15px; margin: 0;">Ask the verification questions before responding</p>
+      </div>
+      <div style="background: rgba(255,255,255,0.12); border-radius: 10px; padding: 16px;">
+        <div style="font-size: 24px; margin-bottom: 8px;">📞</div>
+        <p style="color: white; font-size: 16px; font-weight: 700; margin: 0 0 4px;">Verify</p>
+        <p style="color: #b3d4f5; font-size: 15px; margin: 0;">Call the organization using a number you find yourself</p>
+      </div>
+      <div style="background: rgba(255,255,255,0.12); border-radius: 10px; padding: 16px;">
+        <div style="font-size: 24px; margin-bottom: 8px;">👨‍👩‍👧</div>
+        <p style="color: white; font-size: 16px; font-weight: 700; margin: 0 0 4px;">Talk</p>
+        <p style="color: #b3d4f5; font-size: 15px; margin: 0;">Always ask a trusted family member or friend first</p>
+      </div>
+      <div style="background: rgba(255,255,255,0.12); border-radius: 10px; padding: 16px;">
+        <div style="font-size: 24px; margin-bottom: 8px;">🎫</div>
+        <p style="color: white; font-size: 16px; font-weight: 700; margin: 0 0 4px;">Never Gift Cards</p>
+        <p style="color: #b3d4f5; font-size: 15px; margin: 0;">No real organization ever asks for gift card payment</p>
+      </div>
+    </div>
+    <p style="color: #fbbf24; font-size: 18px; font-weight: 700; margin: 24px 0 0; font-family: 'Merriweather', serif;">You deserve to feel safe and confident online. You've got this! 💪</p>
+  </div>
+
+  <p style="text-align: center; color: #888; font-size: 14px; margin-top: 24px;">
+    This guide is for educational purposes. Last updated March 2026. Share with family and friends! <br>
+    For the most current scam alerts, visit <a href="https://consumer.ftc.gov/scams" target="_blank" style="color: var(--sky);">consumer.ftc.gov/scams</a>
+  </p>
+</div>
+
+<!-- BACK TO TOP -->
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">⬆ Back to Top</button>
+
+<script>
+  // Accordion toggle
+  function toggle(btn) {
+    const content = btn.nextElementSibling;
+    const isOpen = content.classList.contains('open');
+    // Close all open accordions in this section
+    const section = btn.closest('.section-body');
+    section.querySelectorAll('.accordion-content.open').forEach(el => el.classList.remove('open'));
+    section.querySelectorAll('.accordion-btn.open').forEach(el => el.classList.remove('open'));
+    // Open this one if it was closed
+    if (!isOpen) {
+      content.classList.add('open');
+      btn.classList.add('open');
+    }
+  }
+
+  // Back to top button
+  window.addEventListener('scroll', () => {
+    const btn = document.getElementById('back-to-top');
+    btn.style.display = window.scrollY > 400 ? 'block' : 'none';
+  });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        const offset = 20;
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // Auto-open first item in each section
+  document.querySelectorAll('.section-body').forEach(section => {
+    const firstBtn = section.querySelector('.accordion-btn');
+    if (firstBtn) {
+      firstBtn.classList.add('open');
+      firstBtn.nextElementSibling.classList.add('open');
+    }
+  });
+</script>
+</body>
+</html>
